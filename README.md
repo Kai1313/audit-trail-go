@@ -47,7 +47,7 @@ The service is mapped to the following MySQL structure (referenced from `image_4
 
 ### 1. Clone & Install
 ```bash
-git clone <repository-url>
+git clone https://github.com/Kai1313/audit-trail-go.git
 cd auditservice
 go mod tidy
 go mod vendor
