@@ -1,0 +1,73 @@
+basePath: /api/v1
+definitions:
+  echo.Map:
+    additionalProperties: true
+    type: object
+  models.AuditEntry:
+    properties:
+      action:
+        type: string
+      actor_id:
+        type: string
+      created_at:
+        type: string
+      entity_id:
+        type: string
+      entity_type:
+        type: string
+      error_message:
+        type: string
+      id:
+        type: integer
+      ip_address:
+        type: string
+      new_values:
+        items:
+          type: integer
+        type: array
+      old_values:
+        items:
+          type: integer
+        type: array
+      request_id:
+        type: string
+      service_source:
+        type: string
+      status:
+        description: 'Must match ENUM: ''SUCCESS'' or ''FAILED'''
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This service handles technical error logging and audit trails.
+  title: Audit Trail Service API
+  version: "1.0"
+paths:
+  /logs:
+    post:
+      consumes:
+      - application/json
+      description: Receives logs from microservices and queues them for MySQL storage
+      parameters:
+      - description: Audit Log Data
+        in: body
+        name: log
+        required: true
+        schema:
+          $ref: '#/definitions/models.AuditEntry'
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Accepted
+          schema:
+            type: string
+        "400":
+          description: Invalid format
+          schema:
+            $ref: '#/definitions/echo.Map'
+      summary: Create a new audit log
+      tags:
+      - logs
+swagger: "2.0"

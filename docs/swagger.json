@@ -1,0 +1,110 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This service handles technical error logging and audit trails.",
+        "title": "Audit Trail Service API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "paths": {
+        "/logs": {
+            "post": {
+                "description": "Receives logs from microservices and queues them for MySQL storage",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "logs"
+                ],
+                "summary": "Create a new audit log",
+                "parameters": [
+                    {
+                        "description": "Audit Log Data",
+                        "name": "log",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.AuditEntry"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid format",
+                        "schema": {
+                            "$ref": "#/definitions/echo.Map"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "echo.Map": {
+            "type": "object",
+            "additionalProperties": true
+        },
+        "models.AuditEntry": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "actor_id": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "entity_id": {
+                    "type": "string"
+                },
+                "entity_type": {
+                    "type": "string"
+                },
+                "error_message": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "ip_address": {
+                    "type": "string"
+                },
+                "new_values": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "old_values": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "request_id": {
+                    "type": "string"
+                },
+                "service_source": {
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Must match ENUM: 'SUCCESS' or 'FAILED'",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
