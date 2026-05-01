@@ -23,7 +23,7 @@ A high-performance, asynchronous logging microservice built with **Go** and **Ec
 
 ## 📋 Database Schema
 
-The service is mapped to the following MySQL structure (referenced from `image_4d155c.png`):
+The service is mapped to the following MySQL structure;
 
 | Column | Type | Nullable | Default |
 | :--- | :--- | :--- | :--- |
@@ -47,7 +47,7 @@ The service is mapped to the following MySQL structure (referenced from `image_4
 
 ### 1. Clone & Install
 ```bash
-git clone https://github.com/Kai1313/audit-trail-go.git
+git clone (this repo)
 cd auditservice
 go mod tidy
 go mod vendor
